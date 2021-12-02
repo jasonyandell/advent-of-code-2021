@@ -23,7 +23,7 @@ test('problem 1 sample is 7', () => {
 
 test('problem 2 actual is ...', () => {
   const result = sumWindows(realInputs,1);
-  console.log('1', result);
+  console.log('Day 1, Problem 1', result);
 });
 
 test('problem 2 sample is 5', () => {
@@ -33,5 +33,5 @@ test('problem 2 sample is 5', () => {
 
 test('problem 2 actual is ...', () => {
   const result = sumWindows(realInputs, 3);
-  console.log('2', result);
+  console.log('Day 1, Problem 2', result);
 })
