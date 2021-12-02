@@ -19,7 +19,6 @@ const sumWindows = (depths:number[], width: number) : number => {
 test('problem 1 sample is 7', () => {
     const result = sumWindows(testInputs,1);
     expect(result).toBe(7);
-
 });
 
 test('problem 2 actual is ...', () => {
