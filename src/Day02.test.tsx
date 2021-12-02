@@ -1,3 +1,4 @@
+
 import actualInstructions from './Day02Input.json'
 const sampleInstructions = ["forward 5","down 5","forward 8","up 3","down 8","forward 2"];
 
@@ -16,11 +17,11 @@ function travel(instructions: string[]): [horizontal:number, depth:number] {
     let depth = 0;
     let horizontal = 0;
 
-    const forward = (steps:number) => {horizontal += steps;}
-    const down = (steps:number) => {depth += steps;}
-    const up = (steps:number) => {depth -= steps;}
+    const forward = (steps:number) => {horizontal += steps;};
+    const down = (steps:number) => {depth += steps;};
+    const up = (steps:number) => {depth -= steps;};
 
-    instructions.map(line => interpret(line, forward, down, up));
+    instructions.forEach(line => interpret(line, forward, down, up));
     
     return [horizontal, depth];
 }
@@ -33,21 +34,19 @@ function travel2(instructions: string[]): [horizontal:number, depth:number] {
     const forward = (steps:number) => {
         horizontal += steps;
         depth += aim*steps;
-    }
-    const down = (steps:number) => {aim += steps;}
-    const up = (steps:number) => {aim -= steps;}
+    };
+    const down = (steps:number) => {aim += steps;};
+    const up = (steps:number) => {aim -= steps;};
 
-    instructions.map(line => interpret(line, forward, down, up));
+    instructions.forEach(line => interpret(line, forward, down, up));
 
     return [horizontal, depth];
 }
 
 test('sample 1 goes to [15,10] = 150', () => {
-
     const [horizontal, depth] = travel(sampleInstructions);
     expect(horizontal).toBe(15);
     expect(depth).toBe(10);
-
     expect(horizontal*depth).toBe(150);
 })
 
@@ -60,7 +59,6 @@ test('actual 1 goes to ...', () => {
 
 test('sample 2 goes to [15,60] = 900', () => {
     const [horizontal, depth] = travel2(sampleInstructions);
-    const output = {position:[horizontal,depth], total:horizontal*depth};
     expect(horizontal*depth).toBe(900);
 })
 
