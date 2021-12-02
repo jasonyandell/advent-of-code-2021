@@ -53,17 +53,17 @@ test('sample 1 goes to [15,10] = 150', () => {
 test('actual 1 goes to ...', () => {
     const [horizontal, depth] = travel(actualInstructions);
     const output = {position:[horizontal,depth], total:horizontal*depth};
-    console.log("Day 2. Problem 1", output);
+    console.log("Day 2, Problem 1", output);
 
 });
 
 test('sample 2 goes to [15,60] = 900', () => {
     const [horizontal, depth] = travel2(sampleInstructions);
     expect(horizontal*depth).toBe(900);
-})
+});
 
 test('actual 2 goes to...', () => {
     const [horizontal, depth] = travel2(actualInstructions);
     const output = {position:[horizontal,depth], total:horizontal*depth};
-    console.log("Day 2. Problem 2", output);
-})
+    console.log("Day 2, Problem 2", output);
+});
