@@ -13,7 +13,7 @@ const interpret = (line:string, forward:NumToVoid, down:NumToVoid, up:NumToVoid)
     if (instruction === "up") up(step);
 }
 
-function travel(instructions: string[]): [horizontal:number, depth:number] {
+const travel = (instructions: string[]): [horizontal:number, depth:number] => {
     let depth = 0;
     let horizontal = 0;
 
@@ -26,7 +26,7 @@ function travel(instructions: string[]): [horizontal:number, depth:number] {
     return [horizontal, depth];
 }
 
-function travel2(instructions: string[]): [horizontal:number, depth:number] {
+const travel2 = (instructions: string[]): [horizontal:number, depth:number] => {
     let aim = 0;
     let depth = 0;
     let horizontal = 0;
