@@ -36,9 +36,9 @@ test('problem 1 sample is 7', () => {
 
 });
 
-test('problem 2 sample is 1688', () => {
+test('problem 2 actual is ...', () => {
   const result = countDeepenings(realInputs);
-  expect(result).toBe(1688);
+  console.log('1', result);
 });
 
 test('problem 2 sample is 5', () => {
@@ -46,7 +46,7 @@ test('problem 2 sample is 5', () => {
   expect(result).toBe(5);
 })
 
-test('problem 2 sample is 1728', () => {
+test('problem 2 actual is ...', () => {
   const result = countDeepeningsBigger(realInputs);
-  expect(result).toBe(1728);
+  console.log('2', result);
 })
