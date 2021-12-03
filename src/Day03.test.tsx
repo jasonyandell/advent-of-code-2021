@@ -1,19 +1,6 @@
-import { actualInput } from "./Day3Input";
+import { sampleInput, actualInput } from "./Day3Input";
 
 export {}
-
-const input = `00100
-11110
-10110
-10111
-10101
-01111
-00111
-11100
-10000
-11001
-00010
-01010`.toString().split('\n');
 
 const countOnBits = (input:string[], column:number):number => {
     let bits = 0;
@@ -62,12 +49,12 @@ const compute = (input:string[]) : number => {
 
 
 test('first column has 7 1 bits', () => {
-    const actual = countOnBits(input, 0);
+    const actual = countOnBits(sampleInput, 0);
     expect(actual).toBe(7);
 })
 
 test('gamma counts are as described', () => {
-    const [gamma, epsilon] = calculateStrings(input);
+    const [gamma, epsilon] = calculateStrings(sampleInput);
     expect(gamma).toBe('10110');
     expect(epsilon).toBe('01001');
 })
@@ -78,7 +65,7 @@ test('binary conversion works appropriately', () => {
 });
 
 test('Sample output is 198', () => {
-    const actual = compute(input);
+    const actual = compute(sampleInput);
     expect(actual).toBe(198);
 });
 

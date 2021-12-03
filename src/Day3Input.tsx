@@ -1,3 +1,18 @@
+const sampleInput = `00100
+11110
+10110
+10111
+10101
+01111
+00111
+11100
+10000
+11001
+00010
+01010`.toString().split('\n');
+
+
+
 const actualInput = `000111111001
 111011110110
 101111111000
@@ -999,4 +1014,4 @@ const actualInput = `000111111001
 110011001010
 011001110101`.toString().split('\n');
 
-export {actualInput};
+export {sampleInput, actualInput};
