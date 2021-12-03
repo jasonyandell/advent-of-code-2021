@@ -1,4 +1,4 @@
-const rawActualInput = `000111111001
+const actualInput = `000111111001
 111011110110
 101111111000
 111100100110
@@ -997,6 +997,6 @@ const rawActualInput = `000111111001
 010101111010
 100100110000
 110011001010
-011001110101`.toString();
+011001110101`.toString().split('\n');
 
-export {rawActualInput};
+export {actualInput};

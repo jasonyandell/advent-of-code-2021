@@ -1,8 +1,8 @@
-import { rawActualInput } from "./Day3Input";
+import { actualInput } from "./Day3Input";
 
 export {}
 
-const rawInput = `00100
+const input = `00100
 11110
 10110
 10111
@@ -13,19 +13,13 @@ const rawInput = `00100
 10000
 11001
 00010
-01010`;
-
-const input = rawInput.split('\n');
-
-const actualInput = (rawActualInput+"").split('\n'); // why did I have to convert this to a string?
-
+01010`.toString().split('\n');
 
 const countOnBits = (input:string[], column:number):number => {
     let bits = 0;
     for(let i = 0; i < input.length; i++) {
         if (input[i][column] === '1') bits++;
     }
-    
     return bits;
 }
 
@@ -86,9 +80,9 @@ test('binary conversion works appropriately', () => {
 test('Sample output is 198', () => {
     const actual = compute(input);
     expect(actual).toBe(198);
-})
+});
 
 test('Actual output is ..', () => {
     const actual = compute(actualInput);
-    console.log(actual);
-})
+    console.log("Day 3, Problem 1", actual);
+});
