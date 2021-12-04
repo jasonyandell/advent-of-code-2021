@@ -2,4 +2,4 @@
 
 https://adventofcode.com/
 
-Run with `npm test`
+Run with `npm test` from `ts/` directory
