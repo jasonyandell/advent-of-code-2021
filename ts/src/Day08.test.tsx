@@ -73,6 +73,26 @@ const tryTranslationMap = (inputs:string[], map:any) : boolean => {
     return success;
 }
 
+const getPossibleMaps = (sortedInputs:string[]):string[] => {
+    const one = sortedInputs.find(input => input.length === 2)
+    if (!one) return [];
+
+    // filter to maps that could contain 1.  takes permutations from 5040->120
+    const possibleMaps1 = allMaps.filter(map => (one.includes(map[2]) && one.includes(map[5])))
+
+    // 120->48.  
+    const seven = sortedInputs.find(input => input.length === 3)
+    if (!seven) return [];
+    const possibleMaps17 = possibleMaps1.filter(map => (seven.includes(map[0]) && (seven.includes(map[2]) && seven.includes(map[5]))))
+
+    // 48 -> 8 (this step actually slows down the total run time for the actual input)
+    // const four = sortedInputs.find(input => input.length === 4)
+    // if (!four) return [];
+    // const possibleMaps174 = possibleMaps17.filter(map => four.includes(map[1]) && four.includes(map[2]) && four.includes(map[3]) && four.includes(map[5]))
+
+    return possibleMaps17;
+}
+
 function solve(rawInputs:string[], rawOutputs:string[]):number {
     // 
     //  dddd
@@ -97,11 +117,7 @@ function solve(rawInputs:string[], rawOutputs:string[]):number {
 
     const sortedInputs = rawInputs.map(alphaSortString)
 
-    const one = sortedInputs.find(input => input.length === 2);
-    if (!one) return 0;
-
-    // filter to maps that could contain 1.  takes permutations from 5040->120
-    const possibleMaps = allMaps.filter(map => (map[2]===one[0] && map[5]===one[1]) || ((map[2]===one[1] && map[5]===one[0])))
+    const possibleMaps = getPossibleMaps(sortedInputs);
 
     const goodTranslationMap = possibleMaps.find(translationMap => {
         const map = getMap(translationMap);
