@@ -44,7 +44,7 @@ const alphaSortString = (s:string):string =>([...s.split('')].sort()).reduce((a,
 
 function getMap(translationMap:string):any {
     const aCharCode = 'a'.charCodeAt(0);
-    const map = {};
+    const map:any = {};
 
     for(let i=0; i<7; i++) {
         const curr = String.fromCharCode(i+aCharCode);
@@ -96,11 +96,19 @@ function solve(rawInputs:string[], rawOutputs:string[]):number {
     // now check all 10. if they all show up in numbersAsLetters, code is good.  apply it to right hand side 
 
     const sortedInputs = rawInputs.map(alphaSortString)
-    const goodTranslationMap = allMaps.find(translationMap => {
+
+    const one = sortedInputs.find(input => input.length === 2);
+    if (!one) return 0;
+
+    // filter to maps that could contain 1.  takes permutations from 5040->120
+    const possibleMaps = allMaps.filter(map => (map[2]===one[0] && map[5]===one[1]) || ((map[2]===one[1] && map[5]===one[0])))
+
+    const goodTranslationMap = possibleMaps.find(translationMap => {
         const map = getMap(translationMap);
         return tryTranslationMap(sortedInputs, map)
     })
-    const workingMap = getMap(goodTranslationMap) // either one works, or crash
+    if (!goodTranslationMap) throw Error("bad filter")
+    const workingMap = getMap(goodTranslationMap??"") // either one works, or crash
     const sortedOutputs = rawOutputs.map(alphaSortString);
     const digits = sortedOutputs.map(output => getDigit(applyMap(workingMap, output)))
     return Number(digits.reduce((a,b)=>a+b,""));

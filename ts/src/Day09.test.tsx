@@ -3,7 +3,6 @@ import {sampleInput, actualInput} from './Day09Input'
 
 export {}
 
-
 type Position = [row:number,column:number]
 
 const getNeighborPositions = (inputs:number[][], pos:Position):Position[] => {
@@ -54,14 +53,15 @@ const except = (neighbors:Position[], alreadySearched:Position[]) : Position[] =
 
 const getBasin = (inputs:number[][], start:Position) : Position[] => {
     let queue = [start];
-    let alreadySearched = [];
+    let alreadySearched:Position[] = [];
 
     while (queue.length > 0) {
         const pos = queue.shift(); // pop
+        if (!pos) throw new Error("make the compiler happy")
 
         const neighbors = getNeighborPositions(inputs, pos);
         const goodNeighbors = neighbors.filter(([row,col])=>!(inputs[row][col]===9));
-        const newNeighbors = except(except(goodNeighbors, alreadySearched), queue);
+        const newNeighbors = except(except(goodNeighbors, alreadySearched), queue); // not already searched or queued
 
         alreadySearched = [...alreadySearched, pos];
         queue = [...queue,...newNeighbors];

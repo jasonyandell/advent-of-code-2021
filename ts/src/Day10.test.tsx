@@ -36,6 +36,7 @@ function scoreProblem1(input:string[]) : number {
         if (ch === ']') return 57;
         if (ch === '}') return 1197;
         if (ch === '>') return 25137;
+        throw Error("bad input")
     }
 
     var validations = input.map(validateLine);
@@ -45,7 +46,7 @@ function scoreProblem1(input:string[]) : number {
 }
 
 function scoreProblem2(inputs:string[]):number {
-    const scores = {
+    const scores:any = {
         ')':1,
         ']':2,
         '}':3,
