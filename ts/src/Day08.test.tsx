@@ -86,9 +86,9 @@ const getPossibleMaps = (sortedInputs:string[]):string[] => {
     const possibleMaps17 = possibleMaps1.filter(map => (seven.includes(map[0]) && (seven.includes(map[2]) && seven.includes(map[5]))))
 
     // 48 -> 8 (this step actually slows down the total run time for the actual input)
-    // const four = sortedInputs.find(input => input.length === 4)
-    // if (!four) return [];
-    // const possibleMaps174 = possibleMaps17.filter(map => four.includes(map[1]) && four.includes(map[2]) && four.includes(map[3]) && four.includes(map[5]))
+    const four = sortedInputs.find(input => input.length === 4)
+    if (!four) return [];
+    const possibleMaps174 = possibleMaps17.filter(map => four.includes(map[1]) && four.includes(map[2]) && four.includes(map[3]) && four.includes(map[5]))
 
     return possibleMaps17;
 }

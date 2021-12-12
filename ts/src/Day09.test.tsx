@@ -1,27 +1,11 @@
 import _, { concat } from "lodash";
+import {Position, gridNeighbors4} from './grid'
+
 import {sampleInput, actualInput} from './Day09Input'
 
 export {}
 
-type Position = [row:number,column:number]
-
-const getNeighborPositions = (inputs:number[][], pos:Position):Position[] => {
-    const [row, col] = pos;
-
-    const badPosition:Position = [-1,-1];
-    const possibleNeighbors = [ [row-1,col], [row+1,col], [row,col-1], [row,col+1] ]
-    
-    const height = inputs.length;
-    return possibleNeighbors.map(([r,c])=>{
-        if (r<0) return badPosition
-        if (r>=height) return badPosition
-        const width = inputs[r].length;
-        if (c<0) return badPosition
-        if (c>=width) return badPosition
-        const output:Position = [r,c];
-        return output;
-    }).filter(xs => !(xs === badPosition))
-}
+const getNeighborPositions = gridNeighbors4
 
 const getLowPoints = (inputs:number[][]):Position[] => {
     let lowPoints:Position[] = []
@@ -43,31 +27,39 @@ const getRisk = (inputs:number[][]) : number => {
     return totalRisk;
 }
 
-const except = (neighbors:Position[], alreadySearched:Position[]) : Position[] => {
-    const newNeighbors = neighbors.filter(([neighborRow, neighborCol]) => {
-        const alreadyFound = alreadySearched.some(([oldRow, oldCol]) => (oldRow === neighborRow) && (oldCol === neighborCol));
-        return !alreadyFound
-    });
-    return newNeighbors;
-}
+// const except = (lhs:Position[], rhs:Position[]) : Position[] => {
+//     const newNeighbors = lhs.filter(([leftRow, leftCol]) => {
+//         const alreadyFound = rhs.some(([rightRow, rightCol]) => (rightRow === leftRow) && (rightCol === leftCol));
+//         return !alreadyFound
+//     });
+//     return newNeighbors;
+// }
 
-const getBasin = (inputs:number[][], start:Position) : Position[] => {
-    let queue = [start];
-    let alreadySearched:Position[] = [];
+const search = <T extends unknown>(start:T, getNeighbors:(pos:T)=>T[], isValidPosition : (pos:T)=>boolean) => {
+    let queue:T[] = [start];
+    let alreadySearched:T[] = [];
 
     while (queue.length > 0) {
         const pos = queue.shift(); // pop
         if (!pos) throw new Error("make the compiler happy")
 
-        const neighbors = getNeighborPositions(inputs, pos);
-        const goodNeighbors = neighbors.filter(([row,col])=>!(inputs[row][col]===9));
-        const newNeighbors = except(except(goodNeighbors, alreadySearched), queue); // not already searched or queued
+        const neighbors = getNeighbors(pos);
+        const goodNeighbors = neighbors.filter(isValidPosition);
+        const newNeighbors = _.differenceWith(_.differenceWith(goodNeighbors, alreadySearched, _.isEqual), queue, _.isEqual);
 
         alreadySearched = [...alreadySearched, pos];
         queue = [...queue,...newNeighbors];
     }
     
     return alreadySearched;
+}
+
+const getBasin = (inputs:number[][], start:Position) : Position[] => {
+    const neighbors = (pos:Position) => gridNeighbors4(inputs, pos);
+    const filter = ([row,col]:Position) => !(inputs[row][col] === 9)
+    const basin = search(start, neighbors, filter)
+
+    return basin;
 }
 
 const findBasinsSizeProduct = (input:number[][]):number => {
