@@ -46,7 +46,7 @@ const problem1 = (grid:number[][], instructions:string[]) => {
 }
 
 
-export const prettyHashDot = (grid:number[][]):string => grid.map(row => row.reduce((p,col)=>p+(col===0?'.':'#'),"")).join("\n ")
+export const prettyHashDot = (grid:number[][]):string => grid.map(row => row.reduce((p,col)=>p+(col===0?' ':'#'),"")).join("\n ")
 
 test('Problem 1, Sample', () => {
     const count = problem1(sampleInput, ['y'])
