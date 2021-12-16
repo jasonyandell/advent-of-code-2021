@@ -41,7 +41,8 @@ const costOf = (grid:number[][], start:Position) : number => {
         queue = queue.sort((a,b)=>a.cost-b.cost) // sort (surprise: faster than scan-for-lowest of unsorted list... )
     }
 
-    return costs[end[0]][end[1]]
+    // no path to end means infinite cost
+    return Number.MAX_VALUE
 }
 
 const getBigGrid = (grid:number[][]):number[][] => {
