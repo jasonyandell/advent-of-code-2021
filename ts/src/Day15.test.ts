@@ -1,4 +1,3 @@
-import { TestScheduler } from '@jest/core'
 import '@testing-library/jest-dom'
 import _ from 'lodash'
 import { sampleInput, actualInput } from './Day15Input'
