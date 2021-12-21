@@ -75,27 +75,10 @@ const countWins = (positions:[number,number], scores:[number,number] = [0,0], cu
 
     const maxScore = 21
     const learnOutcome = (state:GameState, d:number=0) : [bigint,bigint] => {
-        //console.log(d, state)
-        if (d>1000) throw Error("no")
+        if (state.scores[0] >= maxScore) return [one,zero]
+        if (state.scores[1] >= maxScore) return [zero,one]
 
         if (hasOutcome(state)) return knownOutcomes(state)
-
-        if (state.scores[0] >= maxScore && state.scores[1] >= maxScore)
-        {
-            console.log("no", state)
-            throw Error("no")
-        }
-
-        if (state.scores[0] >= maxScore) {
-            var result:[bigint,bigint] = [one,zero]// state.currentPlayer === 0 ? [zero,one] : [one,zero]
-            setOutcome(state, result)
-            return result;
-        }
-        if (state.scores[1] >= maxScore) {
-            var result:[bigint,bigint] = [zero,one]//state.currentPlayer === 1 ? [zero,one] : [one,zero]
-            setOutcome(state, result)
-            return result;
-        }
 
         let outcome:[bigint,bigint] = [zero,zero]
         for (let v of values) {
@@ -109,11 +92,8 @@ const countWins = (positions:[number,number], scores:[number,number] = [0,0], cu
         return outcome;
     }
 
-
     const gameState:GameState = {positions, scores, currentPlayer}
     const outcome = learnOutcome(gameState)
-
-    //console.log(outcomes)
 
     return outcome[0] > outcome[1] ? outcome[0] : outcome[1]
 
@@ -124,21 +104,20 @@ const interpretResults = (playerPositions:number[]) => {
     return losingPlayerScore*dieRolls
 }
 
-// test('game starting at 4,8 is 739785', () => {
-//     const result = interpretResults([4,8])
-//     expect(result).toBe(739785)
-// })
+test('game starting at 4,8 is 739785', () => {
+    const result = interpretResults([4,8])
+    expect(result).toBe(739785)
+})
 
-// test('Problem 1 output is...', () => {
-//     const result = interpretResults([3,5])
-//     console.log("Day 21, Problem 1", result)
-// })
+test('Problem 1 output is...', () => {
+    const result = interpretResults([3,5])
+    console.log("Day 21, Problem 1", result)
+})
 
 test('Problem 2 sample is 444356092776315', () => {
     const result = countWins([4,8])
     expect(result).toBe(BigInt(444356092776315))
 })
-
 
 test('Problem 2 actual is ...', () => {
     const result = countWins([3,5])
