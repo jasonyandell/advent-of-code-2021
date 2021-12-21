@@ -74,7 +74,7 @@ const countWins = (positions:[number,number], scores:[number,number] = [0,0], cu
     const values = getValues()
 
     const maxScore = 21
-    const learnOutcome = (state:GameState, d:number=0) : [bigint,bigint] => {
+    const learnOutcome = (state:GameState) : [bigint,bigint] => {
         if (state.scores[0] >= maxScore) return [one,zero]
         if (state.scores[1] >= maxScore) return [zero,one]
 
@@ -83,7 +83,7 @@ const countWins = (positions:[number,number], scores:[number,number] = [0,0], cu
         let outcome:[bigint,bigint] = [zero,zero]
         for (let v of values) {
             const s = roll(state,v)
-            const [p1Wins,p2Wins] = learnOutcome(s, d+1)
+            const [p1Wins,p2Wins] = learnOutcome(s)
 
             outcome[0] += p1Wins
             outcome[1] += p2Wins
